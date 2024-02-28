@@ -1,0 +1,31 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: tekton-spring-pipeline-run-init
+  namespace: test-node
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  labels:
+    tekton.dev/pipeline: tekton-spring-pipeline
+    type: pipeline
+spec:
+  params:
+    - name: source-repo
+      value: 'https://github.com/kenshinbon/tekton-spring.git'
+    - name: source-branch
+      value: main
+    - name: output-image
+      value: image-registry.openshift-image-registry.svc:5000/default-route-openshift-image-registry.apps.ocp4-test.itmlabs.io/test-node/java/tekton-spring
+  pipelineRef:
+    name: tekton-spring-pipeline
+  serviceAccountName: pipeline
+  workspaces:
+    - name: source-folder
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi

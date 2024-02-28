@@ -1,0 +1,16 @@
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: tekton-spring
+  description: Test
+  annotations:
+    tektonci/build-namespace: test-node
+    backstage.io/kubernetes-id: tekton-spring
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: kenshinbon/tekton-spring
+spec:
+  type: api
+  system: cncf
+  lifecycle: production
+  owner: cncf
