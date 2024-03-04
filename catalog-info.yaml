@@ -9,7 +9,6 @@ metadata:
     backstage.io/kubernetes-id: tekton-spring
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: kenshinbon/tekton-spring
-    backstage.io/kubernetes-id: tekton-spring
 spec:
   type: api
   system: cncf
