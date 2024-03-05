@@ -12,6 +12,8 @@ metadata:
     argocd/app-name: tekton-spring
     backstage.io/kubernetes-namespace: test-node
     janus-idp.io/tekton : tekton-spring
+    tektonci/enabled: "true"
+    backstage.io/kubernetes-label-selector: 'app=tekton-spring'
 spec:
   type: api
   system: cncf
