@@ -84,6 +84,20 @@ spec:
             workspace: source
           - name: maven-settings
             workspace: maven-settings
+      - name: build
+        taskRef:
+          name: build
+        runAfter:
+          - snyk
+        params:
+          - name: GOALS
+            value:
+              - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
   workspaces:
     - name: maven-settings
       emptyDir: {}
