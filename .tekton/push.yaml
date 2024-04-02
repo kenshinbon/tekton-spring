@@ -86,7 +86,7 @@ spec:
             workspace: maven-settings
       - name: build
         taskRef:
-          name: build
+          name: maven
         runAfter:
           - snyk
         params:
