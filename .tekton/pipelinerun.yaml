@@ -2,14 +2,11 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: tekton-spring
-  labels:     
-    app: tekton-spring
-    backstage.io/kubernetes-id: tekton-spring
+  name: tekton-spring-push
   annotations:
     # The event we are targeting as seen from the webhook payload
     # this can be an array too, i.e: [pull_request, push]
-    pipelinesascode.tekton.dev/on-event: "[pull_request, push]"
+    pipelinesascode.tekton.dev/on-event: "[push]"
 
     # The branch or tag we are targeting (ie: main, refs/tags/*)
     pipelinesascode.tekton.dev/on-target-branch: "[main]"
@@ -64,6 +61,34 @@ spec:
           name: maven
         runAfter:
           - fetch-repository
+        params:
+          - name: GOALS
+            value:
+              - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
+      - name: snyk
+        taskRef:
+          name: maven
+        runAfter:
+          - fetch-repository
+        params:
+          - name: GOALS
+            value:
+              - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
+      - name: build
+        taskRef:
+          name: build
+        runAfter:
+          - snyk
         params:
           - name: GOALS
             value:
