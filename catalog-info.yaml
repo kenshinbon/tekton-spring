@@ -9,7 +9,7 @@ metadata:
     backstage.io/kubernetes-id: tekton-spring
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: kenshinbon/tekton-spring
-    argocd/app-name: tekton-spring
+    argocd/app-name: test
     backstage.io/kubernetes-namespace: test-node
     janus-idp.io/tekton : tekton-spring
     tektonci/enabled: "true"
