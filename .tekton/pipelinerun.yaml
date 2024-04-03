@@ -68,6 +68,11 @@ spec:
           - name: GOALS
             value:
               - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
       - name: snyk
         taskRef:
           name: maven
@@ -77,6 +82,11 @@ spec:
           - name: GOALS
             value:
               - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
       - name: build
         taskRef:
           name: maven
@@ -87,6 +97,11 @@ spec:
           - name: GOALS
             value:
               - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
   workspaces:
     - name: maven-settings
       emptyDir: {}
