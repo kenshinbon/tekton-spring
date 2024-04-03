@@ -117,7 +117,7 @@ spec:
             workspace: source
           - name: maven-settings
             workspace: maven-settings
-      - name: Repo-commit
+      - name: repo-commit
         taskRef:
           name: maven
         runAfter:
@@ -136,7 +136,7 @@ spec:
         taskRef:
           name: maven
         runAfter:
-          - Repo-commit
+          - repo-commit
         params:
           - name: GOALS
             value:
