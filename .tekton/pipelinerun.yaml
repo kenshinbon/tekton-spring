@@ -102,6 +102,64 @@ spec:
             workspace: source
           - name: maven-settings
             workspace: maven-settings
+      - name: push
+        taskRef:
+          name: maven
+        runAfter:
+          - snyk
+          - maven-test
+        params:
+          - name: GOALS
+            value:
+              - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
+      - name: Repo-commit
+        taskRef:
+          name: maven
+        runAfter:
+          - build
+          - push
+        params:
+          - name: GOALS
+            value:
+              - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
+      - name: deploy
+        taskRef:
+          name: maven
+        runAfter:
+          - Repo-commit
+        params:
+          - name: GOALS
+            value:
+              - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
+      - name: validate
+        taskRef:
+          name: maven
+        runAfter:
+          - deploy
+        params:
+          - name: GOALS
+            value:
+              - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
   workspaces:
     - name: maven-settings
       emptyDir: {}
