@@ -146,11 +146,41 @@ spec:
             workspace: source
           - name: maven-settings
             workspace: maven-settings
+      - name: ticket
+        taskRef:
+          name: maven
+        runAfter:
+          - repo-commit
+        params:
+          - name: GOALS
+            value:
+              - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
       - name: validate
         taskRef:
           name: maven
         runAfter:
           - deploy
+          - ticket
+        params:
+          - name: GOALS
+            value:
+              - test
+        workspaces:
+          - name: source
+            workspace: source
+          - name: maven-settings
+            workspace: maven-settings
+      - name: finalize
+        taskRef:
+          name: maven
+        runAfter:
+          - deploy
+          - ticket
         params:
           - name: GOALS
             value:
